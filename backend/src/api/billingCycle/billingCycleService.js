@@ -1,7 +1,9 @@
 const BillingCycle = require('./billingCycle');
+const errorHandler = require('../common/errorHandler');
 
 BillingCycle.methods(['get', 'post', 'put', 'delete'])
 BillingCycle.updateOptions({ new: true, runValidators: true }) // returns new object and run validations also on PUT, not just POST.
+BillingCycle.after('post', errorHandler).after('put', errorHandler);
 
 BillingCycle.route('count', (req, res) => {
     BillingCycle.count((error, value) => {
